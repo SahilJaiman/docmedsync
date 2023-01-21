@@ -29,7 +29,7 @@ export const Hero = () => {
                 scale: 1.00,
                 scaleMobile: 1.00,
                 backgroundColor: darkMode.value == false ? 0xffffff : 0x000000,
-                maxDistance: 20,
+                maxDistance: 25,
                 color: 0x0072F5,
 
             }))
@@ -58,6 +58,13 @@ export const Hero = () => {
     return (
         <>
             <Box ref={myRef}
+                
+                css={{
+                    visibility:"hidden",
+                    '@xs': {
+                    visibility:"visible"
+                    }
+                }}
                
             >
                
@@ -65,6 +72,7 @@ export const Hero = () => {
 
 
                     css={{
+                        'visibility':"visible",
                         'gap': '$3',
                         'px': '$6',
                         'flexDirection': 'column',
@@ -158,7 +166,7 @@ export const Hero = () => {
 
 
                                 }} >Get Started</Button>
-                            <Button bordered color="primary" auto css={{ zIndex: '$1' }}>Learn More</Button>
+                            <Button onPress={()=>history("/about")} bordered color="primary" auto css={{ zIndex: '$1' }}>Learn More</Button>
                         </Flex>
                         <Flex
                             wrap={'wrap'}

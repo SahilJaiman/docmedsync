@@ -65,7 +65,7 @@
        network_id: '5', // eslint-disable-line camelcase
        gas: 5500000,        // Ropsten has a lower block limit than mainnet
        confirmations: 2,    // # of confs to wait between deployments. (default: 0)
-       timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/default: 50)
+       timeoutBlocks: 2000,  // # of blocks before a deployment times out  (minimum/default: 50)
        skipDryRun: false
  
      },

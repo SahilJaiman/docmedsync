@@ -6,6 +6,9 @@ import Loading from '../../../components/Loading/Loading';
 import { useNavigate } from 'react-router-dom';
 import { gateway } from '../../../config.js';
 
+
+
+
 const PublicDashBoard = () => {
 
     const [web3, setWeb3] = useState(undefined);
@@ -20,6 +23,8 @@ const PublicDashBoard = () => {
     const [hospitals, setHospitals] = useState([]);
     const [orgId, setOrgId] = useState("");
     const [org, setOrg] = useState(null);
+
+    
 
 
     const isReady = () => {
@@ -151,7 +156,7 @@ const PublicDashBoard = () => {
                         <Text h4 css={{ marginBottom: "2rem" }}>Get Address of the Owner</Text>
 
 
-                        <div style={{ display: "flex", flexDirection: "row", justifyItems: "center", alignItems: "center", gap: "2rem" }}>
+                        <div style={{ display: "flex", flexDirection: "row", justifyItems: "center", alignItems: "center", gap: "2rem",zIndex:"1" }}>
 
                             <Button type='submit' onPress={getOwner} shadow auto color="primary" rounded>Click Here </Button>
                             <Text color='success'>

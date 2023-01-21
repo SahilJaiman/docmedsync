@@ -43,7 +43,7 @@ const PatientDashboard = () => {
                 const networkId = await web3.eth.net.getId();
                 const deployedNetwork = Docmedsync.networks[networkId];
                 if (deployedNetwork === undefined)
-                    throw new Error('Make sure you are on the corrent network. Set the network to Ropsten Test Network');
+                    throw new Error('Make sure you are on the correct network. Set the network to Test Network');
                 const contract = new web3.eth.Contract(
                     Docmedsync.abi,
                     deployedNetwork && deployedNetwork.address,
@@ -75,6 +75,12 @@ const PatientDashboard = () => {
             });
             const pat = await contract.methods.getPatientDetails(yourId).call({ from: accounts[0] });
             setPatient(pat);
+            messageApi.open({
+                key:"1",
+                type: 'success',
+                content: <>Data loaded Successfully!</>,
+                duration: 5,
+            });
         } catch (err) {
             messageApi.open({
                 key:"1",

@@ -1,7 +1,8 @@
 import React from 'react'
 import "./Record.css";
 import { gateway } from '../../config';
-const Record = ({record}) => {
+import { Button } from '@nextui-org/react';
+const Record = ({ record }) => {
     return (
         <>
             <div className="container record">
@@ -16,19 +17,19 @@ const Record = ({record}) => {
                                     </p>
                                 </li>
                                 <li className="row">
-                                    <span className="col-md-5">Condition :</span> 
+                                    <span className="col-md-5">Condition :</span>
                                     <p>
                                         {record.condition}
                                     </p>
                                 </li>
                                 <li className="row">
-                                    <span className="col-md-5">Description :</span> 
+                                    <span className="col-md-5">Description :</span>
                                     <p>
                                         {record.description}
                                     </p>
                                 </li>
                                 <li className="row">
-                                    <span className="col-md-5">Allergies:</span> 
+                                    <span className="col-md-5">Allergies:</span>
                                     <p>
                                         {record.allergy}
                                     </p>
@@ -37,7 +38,11 @@ const Record = ({record}) => {
                         </div>
                     </div>
                     <div className="col-md-4 rec">
-                        <img src={`${gateway}${record.docs}`} alt="no record"/>
+                        <a href={`${gateway}${record.docs}`}>
+                            <Button>Download Record</Button>
+                        </a>
+
+
                     </div>
                 </div>
             </div>

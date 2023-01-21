@@ -1,9 +1,10 @@
 import { Button, Dropdown, Link, Navbar, Switch, Text, useTheme } from '@nextui-org/react';
-import React from 'react';
+import React, { useState } from 'react';
 import { ModalLogin } from '../modal';
-import { icons } from './icons.tsx';
+
 import { AcmeLogo } from './logo.tsx';
 import { GithubIcon } from '../icons/GithubIcon.tsx'
+import Web3 from "web3";
 
 import { SunIcon } from './SunIcon';
 import { MoonIcon } from './MoonIcon';
@@ -11,12 +12,22 @@ import useDarkMode from 'use-dark-mode';
 import { Link as ReactLink } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import { useMatch } from 'react-router-dom';
+
+
+
+
+
+
+
+
 export const Nav = () => {
 
     const darkMode = useDarkMode(false);
     const navigate = useNavigate();
 
 
+
+   
 
     const collapseItems = [
         { name: "Home", link: "/" },
@@ -94,9 +105,7 @@ export const Nav = () => {
                 </Navbar.CollapseItem>
             </Navbar.Collapse>
             <Navbar.Content>
-                
-
-
+              
                 <Navbar.Item hideIn={'xs'}>
                     <Link
                         color="inherit"

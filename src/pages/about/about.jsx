@@ -1,9 +1,11 @@
 import { Card, Grid, Row, Text, Link, Col, Button } from "@nextui-org/react";
+import { Box } from '../../components/styles/box'
+
 
 export default function About() {
     const list = [
         {
-            title: "Docmedsync is a decentralised system for sharing electronic medical records (EMR). You have total control over your data thanks to its fundamental technology, which is based on the Ethereum network and IPFS. Your records are only accessible to authorised parties and registered medical institutions.",
+            title: "Docmedsync is a decentralised system for sharing electronic medical records (EMR). You have total control over your data thanks to its fundamental technology, which is based on the Ethereum network and IPFS. Your records are only accessible to authorised parties and registered medical institutions.",
             img: "docmed.png",
 
         },
@@ -70,109 +72,118 @@ export default function About() {
                     webkitBackdropFilter: "blur(4.6px)",
 
                 }}>An electronic health record is defined as an electronic version of a medical history of the patient as kept by the health care provider. But it consists of some major security and privacy flaws.</h5>
-                <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-evenly", marginTop: "2rem", width: "90%", }}>
-                    <Card css={{ p: "$6", mw: "400px", marginLeft: "10%", marginRight: "0.2rem" }}>
-                        <Card.Header>
-                            <img
-                                alt="nextui logo"
-                                src="https://img.freepik.com/free-vector/computer-safety-technology-icon_53876-118352.jpg?w=2000"
-                                width="34px"
-                                height="34px"
-                            />
-                            <Grid.Container css={{ pl: "$6" }}>
-                                <Grid xs={12}>
-                                    <Text h4 css={{ lineHeight: "$xs" }}>
-                                        Potential Cybersecurity Issues
-                                    </Text>
-                                </Grid>
+                <Box  css={{
+                    display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center', marginTop: "4rem", margin: "auto", gap: "2rem", width: "90%",
+                    padding: "2rem",
+                
 
-                            </Grid.Container>
-                        </Card.Header>
-                        <Card.Body css={{ py: "$2" }}>
-                            <Text>
-                                Patients' information is stored in a centralised database that is vulnerable to DoS attacks and single points of failure.
-                            </Text>
-                        </Card.Body>
+                    
+                    '@sm': { flexDirection: "row"}
+                }}>
+                
+                        <Card  css={{ p: "$6", mw: "400px",}}>
+                            <Card.Header>
+                                <img
+                                    alt="nextui logo"
+                                    src="https://img.freepik.com/free-vector/computer-safety-technology-icon_53876-118352.jpg?w=2000"
+                                    width="34px"
+                                    height="34px"
+                                />
+                                <Grid.Container css={{ pl: "$6" }}>
+                                    <Grid xs={12}>
+                                        <Text h4 css={{ lineHeight: "$xs" }}>
+                                            Potential Cybersecurity Issues
+                                        </Text>
+                                    </Grid>
 
-
-                    </Card>
-                    <Card css={{ p: "$6", mw: "400px", marginRight: "0.2rem" }}>
-                        <Card.Header>
-                            <img
-                                alt="nextui logo"
-                                src="https://www.auditboard.com/img/blog/Privacy-vs-Security-blog.png"
-                                width="34px"
-                                height="34px"
-                            />
-                            <Grid.Container css={{ pl: "$6" }}>
-                                <Grid xs={12}>
-                                    <Text h4 css={{ lineHeight: "$xs" }}>
-                                        Privacy of Patients
-                                    </Text>
-                                </Grid>
-
-                            </Grid.Container>
-                        </Card.Header>
-                        <Card.Body css={{ py: "$2" }}>
-                            <Text>
-                                if a hack is ever made into the database. It is unethical for patient data to be exposed to the public. Systems that are centralised are also susceptible to privacy violations.
-                            </Text>
-                        </Card.Body>
+                                </Grid.Container>
+                            </Card.Header>
+                            <Card.Body css={{ py: "$2" }}>
+                                <Text>
+                                    Patients' information is stored in a centralised database that is vulnerable to DoS attacks and single points of failure.
+                                </Text>
+                            </Card.Body>
 
 
-                    </Card>
-                    <Card css={{ p: "$6", mw: "400px", marginRight: "0.2rem" }}>
-                        <Card.Header>
-                            <img
-                                alt="nextui logo"
-                                src="https://thumbs.dreamstime.com/b/globe-stats-5682496.jpg"
-                                width="34px"
-                                height="34px"
-                            />
-                            <Grid.Container css={{ pl: "$6" }}>
-                                <Grid xs={12}>
-                                    <Text h4 css={{ lineHeight: "$xs" }}>
-                                        Inaccurate Data
-                                    </Text>
-                                </Grid>
+                        </Card>
+                        <Card css={{ p: "$6", mw: "400px" }}>
+                            <Card.Header>
+                                <img
+                                    alt="nextui logo"
+                                    src="https://www.auditboard.com/img/blog/Privacy-vs-Security-blog.png"
+                                    width="34px"
+                                    height="34px"
+                                />
+                                <Grid.Container css={{ pl: "$6" }}>
+                                    <Grid xs={12}>
+                                        <Text h4 css={{ lineHeight: "$xs" }}>
+                                            Privacy of Patients
+                                        </Text>
+                                    </Grid>
 
-                            </Grid.Container>
-                        </Card.Header>
-                        <Card.Body css={{ py: "$2" }}>
-                            <Text>
-                                Anyone viewing an EMR could obtain inaccurate information if it is not updated right once after new information becomes available, such as after test results are received. Errors in diagnosis and treatment could result from this.
-                            </Text>
-                        </Card.Body>
-
-
-                    </Card>
-                    <Card css={{ p: "$6", mw: "400px" }}>
-                        <Card.Header>
-                            <img
-                                alt="nextui logo"
-                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQj51mHkrj3C3RIrQC4O74Aj6dxu3EDWt_x4g&usqp=CAU"
-                                width="34px"
-                                height="34px"
-                            />
-                            <Grid.Container css={{ pl: "$6" }}>
-                                <Grid xs={12}>
-                                    <Text h4 css={{ lineHeight: "$xs" }}>
-                                        Time and Money
-                                    </Text>
-                                </Grid>
-
-                            </Grid.Container>
-                        </Card.Header>
-                        <Card.Body css={{ py: "$2" }}>
-                            <Text>
-                                To identify and deploy the ideal EHR system for your practise, it also needs time to demo EHR products and negotiate with EHR system providers.
-                            </Text>
-                        </Card.Body>
+                                </Grid.Container>
+                            </Card.Header>
+                            <Card.Body css={{ py: "$2" }}>
+                                <Text>
+                                    If a hack is ever made into the database. It is unethical for patient data to be exposed to the public. Systems that are centralised are also susceptible to privacy violations.
+                                </Text>
+                            </Card.Body>
 
 
-                    </Card>
+                        </Card>
+                        <Card css={{ p: "$6", mw: "400px" }}>
+                            <Card.Header>
+                                <img
+                                    alt="nextui logo"
+                                    src="https://thumbs.dreamstime.com/b/globe-stats-5682496.jpg"
+                                    width="34px"
+                                    height="34px"
+                                />
+                                <Grid.Container css={{ pl: "$6" }}>
+                                    <Grid xs={12}>
+                                        <Text h4 css={{ lineHeight: "$xs" }}>
+                                            Inaccurate Data
+                                        </Text>
+                                    </Grid>
 
-                </div>
+                                </Grid.Container>
+                            </Card.Header>
+                            <Card.Body css={{ py: "$2" }}>
+                                <Text>
+                                    Anyone viewing an EMR could obtain inaccurate information if it is not updated right once after new information becomes available, such as after test results are received.
+                                </Text>
+                            </Card.Body>
+
+
+                        </Card>
+                        <Card css={{ p: "$6", mw: "400px",h:"initial" }}>
+                            <Card.Header>
+                                <img
+                                    alt="nextui logo"
+                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQj51mHkrj3C3RIrQC4O74Aj6dxu3EDWt_x4g&usqp=CAU"
+                                    width="34px"
+                                    height="34px"
+                                />
+                                <Grid.Container css={{ pl: "$6" }}>
+                                    <Grid xs={12}>
+                                        <Text h4 css={{ lineHeight: "$xs" }}>
+                                            Time and Money
+                                        </Text>
+                                    </Grid>
+
+                                </Grid.Container>
+                            </Card.Header>
+                            <Card.Body css={{ py: "$2" }}>
+                                <Text>
+                                    To identify and deploy the ideal EHR system for your practise, it also needs time to demo EHR products and negotiate with EHR system providers.
+                                </Text>
+                            </Card.Body>
+
+
+                        </Card>
+
+             
+                </Box>
                 <div>
                     <h3 style={{
                         display: "flex", flexDirection: "row", justifyContent: "flex start", marginTop: "2rem", marginLeft: "10%", marginRight: "78%", padding: "0.1rem",
@@ -189,6 +200,7 @@ export default function About() {
                         backdropFilter: "blur(4.6px)",
                         webkitBackdropFilter: "blur(4.6px)",
                     }}>A decentralised, user-friendly electronic medical record system is offered by DOCMEDSYNC . It is an online application that can be used for free and has a feature-rich, interactive user interface that makes it simple to use.</h5>
+                    
                     <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-evenly", marginTop: "2rem", width: "90%", }}>
 
                         <Card css={{ p: "$6", mw: "400px", marginLeft: "10%", marginRight: "0.2rem" }}>
@@ -297,7 +309,7 @@ export default function About() {
                             <Card.Body css={{ py: "$2" }}>
                                 <Text>
 
-                                    Docmedsync is a system that is free to use and nonprofit. This software is not required to be purchased. It is accessible to all.
+                                    Docmedsync is a system that is free to use and nonprofit. This software is not required to be purchased. It is accessible to all.
 
 
                                 </Text>
