@@ -38,9 +38,8 @@ const HospitalsTable = () => {
             <div style={{
                 display: "flex",
                 justifyContent: "center", /* align horizontal */
-                alignItems: "center",
-                gap: "5rem",
-                height:"100%",
+                
+                height:"100vh",
                 marginTop: "5rem"
             }}>
 
