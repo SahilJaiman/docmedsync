@@ -9,7 +9,8 @@ import { useNavigate } from 'react-router-dom';
 import { create } from "ipfs-http-client";
 import { gateway } from '../../../config';
 import { Input, Button, Text } from "@nextui-org/react";
-
+import { message, ConfigProvider, theme } from 'antd';
+import useDarkMode from 'use-dark-mode';
 var Buffer = require('buffer/').Buffer
 
 const projectId = '2HGrr5QuuBybx8VOY8J3Ol5Xee7';
@@ -32,6 +33,9 @@ const Hospital = () => {
     const [records, setRecords] = useState([]);
     const [patId, setPatId] = useState("");
     const [hospital, setHospital] = useState();
+    const [messageApi, contextHolder] = message.useMessage();
+    const [loading, setLoading] = useState(false);
+    const darkMode = useDarkMode(false);
     const isReady = () => {
         return (
             typeof contract !== 'undefined'
@@ -128,13 +132,32 @@ const Hospital = () => {
     const handleSubmitPatient = async (e) => {
         e.preventDefault();
         try {
+            messageApi.open({
+                key:"1",
+                type: 'loading',
+                content: 'Transaction in progress...',
+                duration: 0,
+              });
+            setLoading(true);
             const result = await ipfs.add(patientBuffer);
             console.log(result);
             console.log(patientAdd);
             await contract.methods.addNewPatient(patientAdd.id, patientAdd.name, patientAdd.gender, patientAdd.bloodgroup, patientAdd.dob, patientAdd.number, patientAdd.address, result.path, patientAdd.ethAdd.trim()).send({ from: accounts[0] });
-            window.alert("Patient Registered Successfully");
+            messageApi.open({
+                key:"1",
+                type: 'success',
+                content: <>Patient Registered Successfully!</>,
+                duration: 5,
+            });
+            //window.alert("Patient Registered Successfully");
         } catch (error) {
-            window.alert("Patient could not be added. Make sure you are an authorized and check input fields");
+            messageApi.open({
+                key:"1",
+                type: 'error',
+                content: <>Patient could not be added. Make sure you are an admin and check input fields</>,
+                duration: 5,
+            });
+            //window.alert("Patient could not be added. Make sure you are an authorized and check input fields");
             console.error(error);
         }
         //setPatientAdd({ name: "", id: "", gender: "", bloodgroup: "", dob: "", number: "", address: "", ethAdd: "" });
@@ -180,6 +203,14 @@ const Hospital = () => {
 
     return (
         <>
+            <ConfigProvider
+                theme={{
+                    algorithm: darkMode.value == false ? theme.defaultAlgorithm : theme.darkAlgorithm,
+
+                }}
+            >
+                {contextHolder}
+            </ConfigProvider>
             <section className="auth-dash-wrapper">
                 <div className="container" >
                     <div className="section-title" >

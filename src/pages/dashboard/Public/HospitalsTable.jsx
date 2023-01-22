@@ -37,10 +37,13 @@ const HospitalsTable = () => {
         <>
             <div style={{
                 display: "flex",
-                justifyContent: "center", /* align horizontal */
-                
-                height:"100vh",
-                marginTop: "5rem"
+                flexDirection:"column",
+          
+               
+                flexGrow: "$1",
+                marginTop: "5rem",
+                margin: "4rem",
+                height:"60vh"
             }}>
 
                 <Table
@@ -49,13 +52,13 @@ const HospitalsTable = () => {
                         height: "auto",
                         width: "100%",
                         zIndex: "$1",
-
-
-
+   
                     }}
                     lined
                     headerLined
                     bordered
+
+                    selectionMode="single"
 
                 >
                     <Table.Header columns={columns}>
