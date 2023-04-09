@@ -121,6 +121,12 @@ const Hospital = () => {
         e.preventDefault();
         setRecords([]);
         try {
+            messageApi.open({
+                key: "5",
+                type: 'loading',
+                content: 'Fetching Data...',
+                duration: 0,
+            });
             const recs = await contract.methods.getPatientRecords(patId).call({ from: accounts[0] });
             const recsArray = [];
             for (let i = 0; i < recs[0].length; i++) {
@@ -134,9 +140,21 @@ const Hospital = () => {
             }
             console.log(recsArray);
             setRecords(recsArray);
+            messageApi.open({
+                key: "5",
+                type: 'success',
+                content: 'Record Fetched Successfully!',
+                duration: 5,
+            });
         } catch (err) {
             console.log(err)
-            window.alert("Could not get records of patient. Please make sure you have the correct rights and you have the correct Id")
+            messageApi.open({
+                key: "5",
+                type: 'error',
+                content: 'Could not get records of patient.Please make sure you have the correct rights and you have the correct Id',
+                duration: 5,
+            });
+
         }
         setPatId("");
     }
