@@ -2,7 +2,7 @@ import React from 'react'
 import "./Record.css";
 import { gateway } from '../../config';
 import { Button } from '@nextui-org/react';
-import { message, ConfigProvider, theme, Descriptions } from 'antd';
+import {ConfigProvider, theme, Descriptions } from 'antd';
 import useDarkMode from 'use-dark-mode';
 
 const Record = ({ record }) => {

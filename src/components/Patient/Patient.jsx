@@ -1,48 +1,59 @@
 import React from 'react'
 import "./Patient.css";
 import { gateway } from '../../config';
+import { ConfigProvider, theme, Descriptions,Image } from 'antd';
+import useDarkMode from 'use-dark-mode';
+
 const Patient = ({ patient }) => {
+    const darkMode = useDarkMode(false);
     return (
         <>
             <div className="container patient">
-                <div className="row">
-                    <div className="col-md-4 sec">
-                        <img src={`${gateway}${patient[7]}`} alt="no dp" />
-                        <span>
-                            {patient[1]}
-                        </span>
-                    </div>
-                    <div className="col-md-6">
-                        <div className="details-patient">
-                            <ul>
-                                <li className="row">
-                                    <span className="col-md-5">Name :</span> {patient[1]}
-                                </li>
-                                <li className="row">
-                                    <span className="col-md-5">Id :</span> {patient[0]}
-                                </li>
-                                <li className="row">
-                                    <span className="col-md-5">Gender:</span> {patient[2]}
-                                </li>
-                                <li className="row">
-                                    <span className="col-md-5">Bloodgroup:</span> {patient[3]}
-                                </li>
-                                <li className="row">
-                                    <span className="col-md-5">Date of Birth:</span> {patient[4]}
-                                </li>
-                                <li className="row">
-                                    <span className="col-md-5">Phone Number :</span> {patient[5]}
-                                </li>
-                                <li className="row">
-                                    <span className="col-md-5">Address :</span> {patient[6]}
-                                </li>
-                                <li className="row">
-                                    <span className="col-md-5">Ethereum Address :</span> {patient[8]}
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                <ConfigProvider
+                    theme={{
+                        algorithm: darkMode.value == false ? theme.defaultAlgorithm : theme.darkAlgorithm,
+
+                    }}
+                >
+                    <Descriptions
+                        title="Patient Details"
+                        bordered
+                        column={{
+                            xxl: 4,
+                            xl: 3,
+                            lg: 3,
+                            md: 3,
+                            sm: 2,
+                            xs: 1,
+                        }}
+                        extra={
+                            <Image
+                                width={200}
+                                height={112}
+                                src={`${gateway}${patient[7]}`}
+                                alt="Patient Image"
+                            />
+                        }
+                    >
+                        <Descriptions.Item label="Name">{patient[1]}</Descriptions.Item>
+                        <Descriptions.Item label="ID">{patient[0]}</Descriptions.Item>
+       
+                        <Descriptions.Item label="Gender">{patient[2]}</Descriptions.Item>
+                        <Descriptions.Item label="Blood Grp">{patient[3]}</Descriptions.Item>
+                        <Descriptions.Item label="Date of Birth">{patient[4]}</Descriptions.Item>
+                        <Descriptions.Item label="Phone Number">{patient[5]}</Descriptions.Item>
+                        <Descriptions.Item label="Address">{patient[6]}</Descriptions.Item>
+                        <Descriptions.Item label="Ethereum Address">{patient[8]}</Descriptions.Item>
+                       
+
+                    </Descriptions>
+                </ConfigProvider>
+
+
+
+
+
+                
             </div>
         </>
     )
