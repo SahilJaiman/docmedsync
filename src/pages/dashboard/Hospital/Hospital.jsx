@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Patient from '../../../components/Patient/Patient';
 import Record from '../../../components/Record/Record';
-import "./Hospital.css";
 import { getWeb3 } from "../../../utils.js";
 import Docmedsync from "../../../contracts/Docmedsync.json";
 import Loading from '../../../components/Loading/Loading';
@@ -9,10 +8,13 @@ import { useNavigate } from 'react-router-dom';
 import { create } from "ipfs-http-client";
 import { gateway } from '../../../config';
 import { Input, Button, Text } from "@nextui-org/react";
-import { message, ConfigProvider, theme } from 'antd';
+import { message, ConfigProvider, theme, Image } from 'antd';
+import { Descriptions } from 'antd';
+import "./Hospital.css";
 import useDarkMode from 'use-dark-mode';
-var Buffer = require('buffer/').Buffer
 
+
+var Buffer = require('buffer/').Buffer
 const projectId = '2HGrr5QuuBybx8VOY8J3Ol5Xee7';
 const projectSecret = '72b4d401f91860370d2865422d0e1996';
 const auth = 'Basic ' + Buffer.from(projectId + ':' + projectSecret).toString('base64');
@@ -52,7 +54,7 @@ const Hospital = () => {
                 const networkId = await web3.eth.net.getId();
                 const deployedNetwork = Docmedsync.networks[networkId];
                 if (deployedNetwork === undefined)
-                    throw new Error('Make sure you are on the corrent network. Set the network to Ropsten Test Network');
+                    throw new Error('Make sure you are on the corrent network. Set the network to Goerli Test Network');
                 const contract = new web3.eth.Contract(
                     Docmedsync.abi,
                     deployedNetwork && deployedNetwork.address,
@@ -85,11 +87,32 @@ const Hospital = () => {
     const getPatient = async (e) => {
         e.preventDefault();
         try {
+            
+            messageApi.open({
+                key: "2",
+                type: 'loading',
+                content: 'Fetching Data...',
+                duration: 0,
+            });
+
             const pat = await contract.methods.getPatientDetails(patientId).call({ from: accounts[0] });
             setPatient(pat);
-            console.log(pat);
+
+            messageApi.open({
+                key: "2",
+                type: 'success',
+                content: 'Data Fetched Successfully!',
+                duration: 5,
+            });
+            
         } catch (err) {
-            window.alert("Could not get details of patient. Please make sure you have the correct rights and you have the correct Id")
+            messageApi.open({
+                key: "2",
+                type: 'error',
+                content: 'Could not get details of patient.Please make sure you have the correct rights and you have the correct Id',
+                duration: 5,
+            });
+            
         }
         setPatientId("");
     }
@@ -133,31 +156,30 @@ const Hospital = () => {
         e.preventDefault();
         try {
             messageApi.open({
-                key:"1",
+                key: "1",
                 type: 'loading',
                 content: 'Transaction in progress...',
                 duration: 0,
-              });
+            });
             setLoading(true);
             const result = await ipfs.add(patientBuffer);
             console.log(result);
             console.log(patientAdd);
             await contract.methods.addNewPatient(patientAdd.id, patientAdd.name, patientAdd.gender, patientAdd.bloodgroup, patientAdd.dob, patientAdd.number, patientAdd.address, result.path, patientAdd.ethAdd.trim()).send({ from: accounts[0] });
             messageApi.open({
-                key:"1",
+                key: "1",
                 type: 'success',
-                content: <>Patient Registered Successfully!</>,
+                content: "Patient Registered Successfully!",
                 duration: 5,
             });
-            //window.alert("Patient Registered Successfully");
+        
         } catch (error) {
             messageApi.open({
-                key:"1",
+                key: "1",
                 type: 'error',
-                content: <>Patient could not be added. Make sure you are an admin and check input fields</>,
+                content: "Patient could not be added. Make sure you are an admin and check input fields",
                 duration: 5,
             });
-            //window.alert("Patient could not be added. Make sure you are an authorized and check input fields");
             console.error(error);
         }
         //setPatientAdd({ name: "", id: "", gender: "", bloodgroup: "", dob: "", number: "", address: "", ethAdd: "" });
@@ -166,12 +188,30 @@ const Hospital = () => {
     const handleSubmitRecord = async (e) => {
         e.preventDefault();
         try {
+            messageApi.open({
+                key: "3",
+                type: 'loading',
+                content: 'Transaction in progress...',
+                duration: 0,
+            });
             const result = await ipfs.add(recordBuffer);
             await contract.methods.addNewRecord(recordAdd.hosId, recordAdd.patId, recordAdd.cond, recordAdd.desc, recordAdd.allergy, result.path).send({ from: accounts[0] });
-            window.alert("Record added Successfully");
+            messageApi.open({
+                key: "3",
+                type: 'success',
+                content: "Record added Successfully!",
+                duration: 5,
+            });
+       
         } catch (error) {
-            window.alert("Record could not be added. Make sure you are an authorized and check input fields");
+            messageApi.open({
+                key: "3",
+                type: 'error',
+                content: "Record could not be added. Make sure you are an authorized and check input fields",
+                duration: 5,
+            });
             console.error(error);
+          
         }
         setRecordAdd({ hosId: "", patId: "", cond: "", desc: "", allergy: "" })
     }
@@ -189,11 +229,31 @@ const Hospital = () => {
     const getHospital = async (e) => {
         e.preventDefault();
         try {
+            messageApi.open({
+                key: "4",
+                type: 'loading',
+                content: 'Fetching Data...',
+                duration: 0,
+            });
             const hos = await contract.methods.getHospitalByAddress(accounts[0]).call();
             setHospital(hos);
+
+            messageApi.open({
+                key: "4",
+                type: 'success',
+                content: 'Data Fetched Successfully!',
+                duration: 5,
+            });
+
         } catch (error) {
             console.log(error)
-            window.alert("Could not get your details. Please make sure you are registerd as a Hospital")
+                messageApi.open({
+                key: "2",
+                type: 'error',
+                content: 'Could not get your details. Please make sure you are registerd as a Hospital',
+                duration: 5,
+            });
+
         }
     }
 
@@ -237,30 +297,60 @@ const Hospital = () => {
                                 <Text h4 css={{ marginBottom: "2rem" }}>Get Details of hosptial</Text>
                                 <div>
 
-                                    <Button type='submit' shadow auto color="primary" rounded css={{zIndex:"1"}}>Click Here  </Button>
+                                    <Button type='submit' shadow auto color="primary" rounded css={{ zIndex: "1" }}>Click Here  </Button>
                                 </div>
                             </form>
                             <div className="details">
                                 {!hospital
                                     ? <></>
-                                    : (<ul>
-                                        <li className="row">
-                                            <span className="col-md-3">Hospital Name :</span> {hospital.name}
-                                        </li>
-                                        <li className="row">
-                                            <span className="col-md-3">Hospital Id :</span> {hospital.id}
-                                        </li>
-                                        <li className="row">
-                                            <span className="col-md-3">Hospital's Address :</span> {hospital.physicalAddress}
-                                        </li>
-                                        <li className="row">
-                                            <span className="col-md-3">Hospital's Ethereum Address :</span> {hospital.walletAddress}
-                                        </li>
-                                        <li className="row">
-                                            <span className="col-md-3 license">License :</span>
-                                            <img src={`${gateway}${hospital.License}`} alt="license of hospital" />
-                                        </li>
-                                    </ul>)}
+                                    : (
+                                        <div
+                                            style={{ marginTop: "2rem" }}
+                                        >
+                                            <ConfigProvider
+                                                theme={{
+                                                    algorithm: darkMode.value == false ? theme.defaultAlgorithm : theme.darkAlgorithm,
+
+                                                }}
+                                            >
+
+
+                                                <Descriptions
+                                                    title={<h3>HOSPITAL INFO</h3>}
+                                    
+                                                    bordered
+                                                    extra={
+                                                        <Image
+                                                            width={200}
+                                                            height={112}
+                                                            src={`${gateway}${hospital.License}`}
+                                                            alt="Hospital Image"
+                                                        />
+                                                    }
+                                                    column={{
+                                                        xxl: 4,
+                                                        xl: 3,
+                                                        lg: 3,
+                                                        md: 3,
+                                                        sm: 2,
+                                                        xs: 1,
+                                                    }}
+                                                >
+                                                   
+                                                    <Descriptions.Item label="Hospital Name">{hospital.name}</Descriptions.Item>
+                                                    <Descriptions.Item label="Hospital Id">{hospital.id}</Descriptions.Item>
+                                                    <Descriptions.Item label="Hospital's Ethereum Address">{hospital.walletAddress}</Descriptions.Item>
+                                                    <Descriptions.Item label="Hospital's Address">{hospital.physicalAddress}</Descriptions.Item>
+
+
+                                                </Descriptions>
+                                            </ConfigProvider>
+
+
+
+                                        </div>
+                                    )
+                                }
                             </div>
 
 
@@ -287,7 +377,7 @@ const Hospital = () => {
                                         />
 
 
-                                        <Button type='submit' shadow auto color="primary" rounded css={{zIndex:"1"}}>Click Here  </Button>
+                                        <Button type='submit' shadow auto color="primary" rounded css={{ zIndex: "1" }}>Click Here  </Button>
                                     </div>
 
                                 </form>
@@ -317,7 +407,7 @@ const Hospital = () => {
                                         />
 
 
-                                        <Button type='submit' shadow auto color="primary" css={{zIndex:"1"}} rounded>Click Here  </Button>
+                                        <Button type='submit' shadow auto color="primary" css={{ zIndex: "1" }} rounded>Click Here  </Button>
                                     </div>
                                 </form>
                                 {records.length > 0
@@ -467,7 +557,7 @@ const Hospital = () => {
 
                                         <div>
 
-                                            <Button type='submit' shadow auto color="primary" css={{zIndex:"1"}} rounded>Submit  </Button>
+                                            <Button type='submit' shadow auto color="primary" css={{ zIndex: "1" }} rounded>Submit  </Button>
                                         </div>
                                     </div>
                                 </form>
@@ -585,7 +675,7 @@ const Hospital = () => {
                                     </div>
 
                                     <div style={{ display: "flex", flexDirection: "row", justifyItems: "center", gap: "2rem", marginTop: "0.5rem" }} s>
-                                        <Button type='submit' shadow auto color="primary" rounded css={{zIndex:"1"}}>Submit </Button>
+                                        <Button type='submit' shadow auto color="primary" rounded css={{ zIndex: "1" }}>Submit </Button>
                                     </div>
                                 </div>
                             </form>

@@ -52,7 +52,7 @@ const Admin = () => {
                 const networkId = await web3.eth.net.getId();
                 const deployedNetwork = Docmedsync.networks[networkId];
                 if (deployedNetwork === undefined)
-                    throw new Error('Make sure you are on the corrent network. Set the network to Ropsten Test Network');
+                    throw new Error('Make sure you are on the corrent network. Set the network to Goerli Test Network');
                 const contract = new web3.eth.Contract(
                     Docmedsync.abi,
                     deployedNetwork && deployedNetwork.address,
@@ -92,10 +92,6 @@ const Admin = () => {
         return <Loading />;
     }
 
-    const handleClick = () => {
-        //  open file input box on click of other element
-        inputRef.current.click();
-    };
 
     const updateIds = async () => {
         if (!isReady())
@@ -228,7 +224,7 @@ const Admin = () => {
                             marginTop: "4%",
                             marginBottom: "2%"
                         }}>
-                        <Text h4 color="primary" css={{ marginBottom: "2rem" }}>Add new Hosptial</Text>
+                        <Text h4 color="primary" css={{ marginBottom: "2rem" }}>ADD NEW HOSPTIAL</Text>
                         <Badge variant="flat" color="warning" size="md" css={{ marginBottom: "2rem" }}>{`Current Id : ${currentHospitalId}`}</Badge>
                         <form onSubmit={handleSubmitHospital} >
 
@@ -312,7 +308,7 @@ const Admin = () => {
                             marginTop: "4%",
                             marginBottom: "2%"
                         }}>
-                        <Text h4 color="primary" css={{ marginBottom: "2rem" }}>Add new Organisation</Text>
+                        <Text h4 color="primary" css={{ marginBottom: "2rem" }}>ADD NEW ORGANISATION</Text>
                         <Badge variant="flat" color="warning" size="md" css={{ marginBottom: "2rem" }}>{`Current Id : ${currentOrgId}`}</Badge>
                      
                         <form onSubmit={handleSubmitOrg} >

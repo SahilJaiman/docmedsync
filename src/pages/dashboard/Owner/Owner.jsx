@@ -36,7 +36,7 @@ const Owner = () => {
                 const networkId = await web3.eth.net.getId();
                 const deployedNetwork = Docmedsync.networks[networkId];
                 if (deployedNetwork === undefined)
-                    throw new Error('Make sure you are on the corrent network. Set the network to Ropsten Test Network');
+                    throw new Error('Make sure you are on the corrent network. Set the network to Goerli Test Network');
                 const contract = new web3.eth.Contract(
                     Docmedsync.abi,
                     deployedNetwork && deployedNetwork.address,
