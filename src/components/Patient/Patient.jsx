@@ -8,7 +8,7 @@ const Patient = ({ patient }) => {
     const darkMode = useDarkMode(false);
     return (
         <>
-            <div className="container patient">
+            <div className="Container patient">
                 <ConfigProvider
                     theme={{
                         algorithm: darkMode.value == false ? theme.defaultAlgorithm : theme.darkAlgorithm,
