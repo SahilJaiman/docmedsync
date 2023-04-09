@@ -2,49 +2,38 @@ import React from 'react'
 import "./Record.css";
 import { gateway } from '../../config';
 import { Button } from '@nextui-org/react';
+import { Descriptions } from 'antd';
+
+
 const Record = ({ record }) => {
     return (
         <>
             <div className="container record">
-                <div className="row">
-                    <div className="col-md-7">
-                        <div className="details-record">
-                            <ul>
-                                <li className="row">
-                                    <span className="col-md-5">Hospital Id :</span>
-                                    <p>
-                                        {record.hospitalId}
-                                    </p>
-                                </li>
-                                <li className="row">
-                                    <span className="col-md-5">Condition :</span>
-                                    <p>
-                                        {record.condition}
-                                    </p>
-                                </li>
-                                <li className="row">
-                                    <span className="col-md-5">Description :</span>
-                                    <p>
-                                        {record.description}
-                                    </p>
-                                </li>
-                                <li className="row">
-                                    <span className="col-md-5">Allergies:</span>
-                                    <p>
-                                        {record.allergy}
-                                    </p>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div className="col-md-4 rec">
-                        <a href={`${gateway}${record.docs}`}>
-                            <Button>Download Record</Button>
-                        </a>
+
+                <Descriptions
+                    title="Record Details"
+                    bordered
+                    column={{
+                        xxl: 4,
+                        xl: 3,
+                        lg: 3,
+                        md: 3,
+                        sm: 2,
+                        xs: 1,
+                    }}
+                    extra={<a href={`${gateway}${record.docs}`}>
+                        <Button size="sm">Download Record</Button>
+                    </a>}
+                >
+                    <Descriptions.Item label="Hospital Id">{record.hospitalId}</Descriptions.Item>
+                    <Descriptions.Item label="Condition"> {record.condition}</Descriptions.Item>
+                    <Descriptions.Item label="Description">{record.description}</Descriptions.Item>
+                    <Descriptions.Item label="Allergies">{record.allergy}</Descriptions.Item>
+
+                </Descriptions>
 
 
-                    </div>
-                </div>
+
             </div>
         </>
     )
